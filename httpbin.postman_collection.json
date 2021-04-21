@@ -1,0 +1,119 @@
+{
+	"info": {
+		"_postman_id": "0b79cebb-48b0-48b7-b721-bc6062e4dd17",
+		"name": "httpbin",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"let jsonData = pm.response.json(); //parsing JSON\r",
+							"console.log(jsonData.args.isGod, typeof jsonData.args.isGod, typeof jsonData.args); //output to console JSON data and type\r",
+							"pm.test(\"isGod_equal_false\", function () {\r",
+							"    \r",
+							"    pm.expect(jsonData.args.isGod).to.eql('false');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{address}}/get?isGod=false&will_I_find_a_job=true",
+					"host": [
+						"{{address}}"
+					],
+					"path": [
+						"get"
+					],
+					"query": [
+						{
+							"key": "isGod",
+							"value": "false"
+						},
+						{
+							"key": "will_I_find_a_job",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let date = Date.now();\r",
+							"console.log(date);\r",
+							"pm.globals.set(\"currentDate\", date);//установили глобальную переменную"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"var jsonData = pm.response.json();// переместили переменную из функции в зону глобальной видимости\r",
+							"// чтобы иметь к ней доступ из других функций\r",
+							"pm.test(\"Equal currentDate\", function () {\r",
+							"    pm.expect(jsonData.json.currentDate).to.eql(pm.globals.get(\"currentDate\")); // сравниваем тело ответа\r",
+							" // с полученной глобальной переменной\r",
+							"});\r",
+							"pm.test(\"Data include something (4000)\", function () {\r",
+							"    pm.expect(jsonData.json.permissions).to.include(4000); // сравниваем тело ответа\r",
+							" // с полученной глобальной переменной\r",
+							"});\r",
+							"console.log(jsonData.json.permissions[2]);//вывести в консоль данные ТОЧКИ"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"name\": \"jon\",\r\n\"permissions\": [2000, 3000, 4000],\r\n\"currentDate\": {{currentDate}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://httpbin.org/post",
+					"protocol": "http",
+					"host": [
+						"httpbin",
+						"org"
+					],
+					"path": [
+						"post"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
