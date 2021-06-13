@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="httpbin" tests="3" time="0.901">
+  <testsuite name="Get" id="f17d7b85-4aab-44ef-811e-db8ea294819c" timestamp="2021-05-11T20:51:16.857Z" tests="2" failures="0" errors="0" time="0.570">
+    <testcase name="Status code is 200" time="0.570" classname="Httpbin"/>
+    <testcase name="isGod_equal_false" time="0.570" classname="Httpbin"/>
+  </testsuite>
+  <testsuite name="Post" id="8cc62762-b922-4a02-b712-b35e14fd5978" timestamp="2021-05-11T20:51:16.857Z" tests="3" failures="0" errors="0" time="0.162">
+    <testcase name="Status code is 200" time="0.162" classname="Httpbin"/>
+    <testcase name="Equal currentDate" time="0.162" classname="Httpbin"/>
+    <testcase name="Data include something (4000)" time="0.162" classname="Httpbin"/>
+  </testsuite>
+  <testsuite name="Put date" id="71effcb6-7441-45d9-98b1-a0428e2505f9" timestamp="2021-05-11T20:51:16.857Z" tests="4" failures="0" errors="0" time="0.169">
+    <testcase name="Status code is 200" time="0.169" classname="Httpbin"/>
+    <testcase name="Equal email address" time="0.169" classname="Httpbin"/>
+    <testcase name="Content-Type is present" time="0.169" classname="Httpbin"/>
+    <testcase name="Content-Type is equal 'application/json'" time="0.169" classname="Httpbin"/>
+  </testsuite>
+</testsuites>
